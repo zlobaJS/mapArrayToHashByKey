@@ -1,15 +1,20 @@
-const mapArrayToHashByKey = (array, key) =>
-    array.reduce(
-        (result, item) =>
+const mapArrayToHashByKey = (array, key) => {
+    if (array === null || array === undefined) {
+        return { [`_${key}s`]: [] };
+    }
+
+    return array.reduce(
+        (res, item) =>
             item && item.hasOwnProperty(key)
                 ? {
-                    ...result,
+                    ...res,
                     [item[key]]: item,
-                    [`_${key}s`]: [...(result[`_${key}s`] || []), item[key]],
+                    [`_${key}s`]: [...(res[`_${key}s`] || []), item[key]],
                 }
-                : result,
+                : res,
         { [`_${key}s`]: [] }
     );
+};
 
 const data = [
     {
